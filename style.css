@@ -4,9 +4,9 @@
 
 @media (prefers-color-scheme: light) {
   body {
-    --bg-color: #f8f8f8;
-    --primary-color: #262262;
-    --primary-contrast: #fff;
+    --bg-color: #556B2F;
+    --primary-color: #1c6606;
+    --primary-contrast: #FFD700;
     --primary-shadow: rgba(0,0,0,0.04);
     --secondary-color: #222;
     --secondary-contrast: #bc8dc0;

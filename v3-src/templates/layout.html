@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Static Built Site</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="https://www.utcsheffield.org.uk/olp/wp-content/themes/utcs-olp-2024/_library/images/favicon/favicon-32x32.png">
+</head>
+
+<body>
+  <header>
+    <div>
+      <h1>My Static Built Site</h1>
+      <!--
+      <img
+        src="https://www.utcsheffield.org.uk/olp/assets/sites/3/2021/07/UTC-Sheffield-Olympic-Legacy-Park-Horizontal.svg"
+        alt="UTC Sheffield Logo">
+      -->
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <!-- Add more links here -->
+          <li><button type="button" id="theme-toggle" aria-label="Toggle dark mode">
+              <span class="toggle-text">Dark</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  <footer>
+    <p>&copy; 2025 Your Name</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>

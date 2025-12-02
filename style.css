@@ -8,18 +8,19 @@
     --primary-color: #1c6606;
     --primary-contrast: #FFD700;
     --primary-shadow: rgba(0,0,0,0.04);
-    --secondary-color: #222;
-    --secondary-contrast: #bc8dc0;
+    --secondary-color: white;
+    --secondary-contrast: black;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   body {
-    --bg-color: #f8f8f8;
+    --bg-color: black;
     --primary-color: #5f55e7;
     --primary-contrast: #fff;
-    --secondary-color: #262262;
-    --secondary-contrast: #ffffff;
+    --primary-shadow: rgba(0,0,0,0.04);
+    --secondary-color: #ffffff;
+    --secondary-contrast: #a8a2f5;
   }
 }
 
@@ -89,7 +90,8 @@ main {
 }
 
 .features article {
-  background: var(--primary-contrast);
+  background: var(---secondary-color);
+  color: var(--secondary-contrast);
   border-radius: 5px;
   padding: 1rem;
   box-shadow: 0 8px 24px var(--primary-shadow);

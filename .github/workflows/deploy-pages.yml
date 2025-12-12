@@ -5,14 +5,47 @@ on:
     branches:
       - main
 
+env:
+  SITE_TYPE: V3 # Options: V1, V2, V3
+
 permissions:
   contents: read
   pages: write
   id-token: write
 
 jobs:
-  build-and-deploy:
-    if: false  # workflow disabled; remove or change to enable
+  deploy-all:
+    if: ${{ env.SITE_TYPE == 'V1' }}  # workflow disabled; remove or change to enable
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Upload  directory
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
+
+  deploy-v2:
+    if: ${{ env.SITE_TYPE == 'V2' }}  # workflow disabled; remove or change to enable
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Upload  directory
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: v2
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
+
+  build-and-deploy-v3:  
+    if: ${{ env.SITE_TYPE == 'V3' }}  # workflow disabled; remove or change to enable
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

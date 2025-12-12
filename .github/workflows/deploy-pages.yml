@@ -11,26 +11,37 @@ permissions:
   id-token: write
 
 jobs:
-  checkout:
+  upload-all:
+    if: ${{ vars.SITE_TYPE == '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-  upload-all:
-    if: ${{ vars.SITE_TYPE == '' }}  # workflow disabled; remove or change to enable
-    runs-on: ubuntu-latest
-    steps:
       - name: Upload directory
         id: upload
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./
 
+  upload-v1:
+    if: ${{ vars.SITE_TYPE == 'v1' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Upload directory
+        id: upload
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./
+
+
   upload-v2:
     if: ${{ vars.SITE_TYPE == 'v2' }}  # workflow disabled; remove or change to enable
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Upload  directory
         id: upload
         uses: actions/upload-pages-artifact@v4
@@ -41,6 +52,8 @@ jobs:
     if: ${{ vars.SITE_TYPE == 'v3' }}  # workflow disabled; remove or change to enable
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -50,7 +63,7 @@ jobs:
         run: python -m pip install --upgrade pip && pip install jinja2
 
       - name: Build site
-        run: python build-v3.py
+        run: python ./build-v3.py
 
       - name: Upload build directory
         id: upload
@@ -60,11 +73,11 @@ jobs:
 
   # Deployment job
   deploy:
+    needs: [upload-all, upload-v1, upload-v2, build-and-upload-v3]
     environment:
       name: github-pages
       url: ${{ steps.upload.outputs.page_url }}
     runs-on: ubuntu-latest
-    #needs: build
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4

@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  SITE_TYPE: V3 # Options: V1, V2, V3
-
 permissions:
   contents: read
   pages: write
@@ -15,7 +12,7 @@ permissions:
 
 jobs:
   deploy-all:
-    if: ${{ env.SITE_TYPE == 'V1' }}  # workflow disabled; remove or change to enable
+    if: ${{ vars.SITE_TYPE == '' }}  # workflow disabled; remove or change to enable
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -30,7 +27,7 @@ jobs:
         uses: actions/deploy-pages@v1
 
   deploy-v2:
-    if: ${{ env.SITE_TYPE == 'V2' }}  # workflow disabled; remove or change to enable
+    if: ${{ vars.SITE_TYPE == 'v2' }}  # workflow disabled; remove or change to enable
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -45,7 +42,7 @@ jobs:
         uses: actions/deploy-pages@v1
 
   build-and-deploy-v3:  
-    if: ${{ env.SITE_TYPE == 'V3' }}  # workflow disabled; remove or change to enable
+    if: ${{ vars.SITE_TYPE == 'v3' }}  # workflow disabled; remove or change to enable
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

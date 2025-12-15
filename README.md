@@ -63,14 +63,14 @@ Follow these steps to enable deployment via GitHub Actions and choose which vari
 
 1. In the repository, go to Settings → Pages.
    - Under Source, change from "Deploy from a branch" to "GitHub Actions".
-   - By default, the workflow deploys the `v2/` site.
+   - By default, the workflow deploys the root directory (v1).
    
 2. (Optional) Set the deployment variant using a Repository Variable:
    - To deploy a different variant, go to Settings → Secrets and variables → Actions → Variables.
    - Click "New repository variable" and add:
      - Name: `SITE_TYPE`
-     - Value: `v3` to build and deploy from `v3-src/`, or `v1` to deploy the root directory.
-     - Leave blank or set to `v2` for the default v2 deployment.
+     - Value: `v2` to deploy the `v2/` site, or `v3` to build and deploy from `v3-src/`.
+     - Leave blank or set to `v1` for the default root directory deployment.
 
 3. Trigger a deployment:
    - Push to the `main` branch, or
@@ -79,8 +79,8 @@ Follow these steps to enable deployment via GitHub Actions and choose which vari
 How it works:
 
 - When `SITE_TYPE` is `v3`, the workflow sets up Python, installs Jinja2, runs `python build-v3.py`, and uploads the `build/` directory.
-- When `SITE_TYPE` is `v2` or blank (default), the workflow uploads the `v2/` directory.
-- When `SITE_TYPE` is `v1`, the workflow uploads the repository root (`./`).
+- When `SITE_TYPE` is `v2`, the workflow uploads the `v2/` directory.
+- When `SITE_TYPE` is `v1` or blank (default), the workflow uploads the repository root (`./`).
 
 After a successful run, the site will be available at the Pages URL shown in Settings → Pages and in the workflow run summary.
 

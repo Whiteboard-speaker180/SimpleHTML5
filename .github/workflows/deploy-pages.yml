@@ -40,14 +40,14 @@ jobs:
           path: build/
 
       - name: Upload v2 directory
-        if: ${{ vars.SITE_TYPE == 'v2' || vars.SITE_TYPE == '' }}
+        if: ${{ vars.SITE_TYPE == 'v2' }}
         id: upload-v2
         uses: actions/upload-pages-artifact@v4
         with:
           path: v2/
 
       - name: Upload root directory
-        if: ${{ vars.SITE_TYPE == 'v1' }}
+        if: ${{ vars.SITE_TYPE == 'v1' || vars.SITE_TYPE == '' }}
         id: upload-root
         uses: actions/upload-pages-artifact@v4
         with:

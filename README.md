@@ -51,28 +51,38 @@ last week.
 
 3. The generated static files will be available in the `build` directory.
 
-### GitHub Pages deploy workflow (disabled)
+### GitHub Pages deploy workflow
 
-A GitHub Actions workflow to build v3 and publish the `build/` directory to GitHub Pages is included at `.github/workflows/deploy-pages.yml`, but it is intentionally disabled.
+This repository includes a GitHub Actions workflow at `.github/workflows/deploy-pages.yml` that can deploy one of three site variants:
 
-To activate the deploy workflow:
+- `v1` (root directory)
+- `v2` (the `v2/` directory)
+- `v3` (build output from `v3-src/` using `build-v3.py`)
 
-1. Edit `.github/workflows/deploy-pages.yml` and remove the line `if: false`
- (or change it to the trigger you want).
-2. Commit and push the change to the repository's default branch (e.g. `main`).
-3. (Optional) In the repository Settings → Actions, ensure Actions are enabled
-for the repository.
-4. In the repository Settings → Pages, you can confirm the site is served via
-"GitHub Actions" after the workflow runs successfully.
+Follow these steps to enable deployment via GitHub Actions and choose which variant to publish.
 
-Once activated, the workflow will:
+1. In the repository, go to Settings → Pages.
+   - Under Source, change from "Deploy from a branch" to "GitHub Actions".
+   - By default, the workflow deploys the `v2/` site.
+   
+2. (Optional) Set the deployment variant using a Repository Variable:
+   - To deploy a different variant, go to Settings → Secrets and variables → Actions → Variables.
+   - Click "New repository variable" and add:
+     - Name: `SITE_TYPE`
+     - Value: `v3` to build and deploy from `v3-src/`, or `v1` to deploy the root directory.
+     - Leave blank or set to `v2` for the default v2 deployment.
 
-- Install Python and Jinja2
-- Run `python build-v3.py`
-- Upload the contents of `build/` and deploy them to GitHub Pages
+3. Trigger a deployment:
+   - Push to the `main` branch, or
+   - Run the workflow manually from the Actions tab ("Deploy site to GitHub Pages").
 
-If you want to test without publishing, keep `if: false`, or change the `on:`
-triggers to a branch you use for testing.
+How it works:
+
+- When `SITE_TYPE` is `v3`, the workflow sets up Python, installs Jinja2, runs `python build-v3.py`, and uploads the `build/` directory.
+- When `SITE_TYPE` is `v2` or blank (default), the workflow uploads the `v2/` directory.
+- When `SITE_TYPE` is `v1`, the workflow uploads the repository root (`./`).
+
+After a successful run, the site will be available at the Pages URL shown in Settings → Pages and in the workflow run summary.
 
 ## Tasks for You to Implement
 

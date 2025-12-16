@@ -1,38 +1,66 @@
-name: Deploy site to GitHub Pages (inactive)
+name: Deploy site to GitHub Pages
 
 on:
   push:
     branches:
       - main
-
+  workflow_dispatch:
+    
 permissions:
   contents: read
   pages: write
   id-token: write
 
 jobs:
-  build-and-deploy:
-    if: false  # workflow disabled; remove or change to enable
+  upload:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: ${{ vars.SITE_TYPE == 'v3' }}
         uses: actions/setup-python@v4
         with:
           python-version: "3.x"
 
       - name: Install dependencies
+        if: ${{ vars.SITE_TYPE == 'v3' }}
         run: python -m pip install --upgrade pip && pip install jinja2
 
       - name: Build site
-        run: python build-v3.py
+        if: ${{ vars.SITE_TYPE == 'v3' }}
+        run: python ./build-v3.py
 
-      - name: Upload build directory
-        uses: actions/upload-pages-artifact@v1
+      - name: Upload v3 build directory
+        if: ${{ vars.SITE_TYPE == 'v3' }}
+        id: upload-v3
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: build
+          path: build/
 
+      - name: Upload v2 directory
+        if: ${{ vars.SITE_TYPE == 'v2' }}
+        id: upload-v2
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: v2/
+
+      - name: Upload root directory
+        if: ${{ vars.SITE_TYPE == 'v1' || vars.SITE_TYPE == '' }}
+        id: upload-root
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./
+
+  # Deployment job
+  deploy:
+    needs: upload
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+        id: deployment
+        uses: actions/deploy-pages@v4

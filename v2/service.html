@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Static Site</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="https://www.utcsheffield.org.uk/olp/wp-content/themes/utcs-olp-2024/_library/images/favicon/favicon-32x32.png">
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div>
+      <h1>Adopt an elephant</h1>
+      <!--
+      <img
+        src="https://www.utcsheffield.org.uk/olp/assets/sites/3/2021/07/UTC-Sheffield-Olympic-Legacy-Park-Horizontal.svg"
+        alt="UTC Sheffield Logo">
+      -->
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="service.html">Service</a></li>
+          <!-- Add more links here -->
+          <li><button type="button" id="theme-toggle" aria-label="Toggle dark mode">
+              <span class="toggle-text">Dark</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+  <main>
+    <section>
+      <h2>S</h2>
+      <p>This is a multipage static site using semantic HTML5 and responsive CSS3 layouts.</p>
+      <img src="https://tse1.mm.bing.net/th/id/OIP.Q5RmX6rSyt8BNlHKSyFcUQHaFj?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3" alt="">
+        <figure>
+    <div class="mermaid">
+---
+config:
+  theme: 'base'
+  themeVariables:
+    primaryColor: '#2E8B57'
+    primaryTextColor: '#fff'
+    primaryBorderColor: '#3F704D'
+    lineColor: '#F8B229'
+    secondaryColor: '#006100'
+    tertiaryColor: '#fff'
+---
+      classDiagram
+ Low_Tier-3.per.month --|> Mid_Tier-5.per.month
+Mid_Tier-5.per.month --|> High_Tier-8.per.month
+Low_Tier-3.per.month : Adoption certificate
+Low_Tier-3.per.month : a beutiful photo of your elephant
+Low_Tier-3.per.month : regular updates of your elephant
+
+Mid_Tier-5.per.month  : adopt magazine
+Mid_Tier-5.per.month  : fact sheet
+Mid_Tier-5.per.month  : all of the rewards from low
+
+High_Tier-8.per.month : soft elephant toy
+High_Tier-8.per.month : animal story
+High_Tier-8.per.month : all of the rewards from low and mid
+    </div>
+    <figcaption>Simple Mermaid Diagram</figcaption>
+</figure>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Your Name</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
